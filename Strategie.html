@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S&P 500 200-Tage-SMA Tracker</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>S&P 500 200-Tage-SMA Tracker</h1>
+        <div id="result">
+            Lade Daten...
+        </div>
+    </div>
+
+    <script>
+        async function fetchSMAStatus() {
+            const response = await fetch('/sma-status');
+            const data = await response.json();
+            document.getElementById('result').innerHTML = `
+                <p>Aktueller S&P 500 Preis: ${data.current_price}</p>
+                <p>200-Tage-SMA: ${data.sma_200}</p>
+                <p>Status: ${data.status}</p>
+            `;
+        }
+
+        // Daten beim Laden der Seite abrufen
+        window.onload = fetchSMAStatus;
+    </script>
+</body>
+</html>
